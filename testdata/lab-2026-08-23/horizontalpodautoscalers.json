@@ -1,0 +1,133 @@
+{
+  "apiVersion": "v1",
+  "kind": "List",
+  "items": [
+    {
+      "apiVersion": "autoscaling/v2",
+      "kind": "HorizontalPodAutoscaler",
+      "metadata": {
+        "annotations": {},
+        "creationTimestamp": "2026-08-23T14:09:51Z",
+        "labels": {
+          "app.kubernetes.io/managed-by": "keda-operator",
+          "app.kubernetes.io/name": "vllm",
+          "app.kubernetes.io/part-of": "inference-lab",
+          "app.kubernetes.io/version": "2.20.2",
+          "scaledobject.keda.sh/name": "vllm"
+        },
+        "name": "keda-hpa-vllm",
+        "namespace": "model-serving",
+        "ownerReferences": [
+          {
+            "apiVersion": "keda.sh/v1alpha1",
+            "blockOwnerDeletion": true,
+            "controller": true,
+            "kind": "ScaledObject",
+            "name": "vllm",
+            "uid": "91562342-7c2a-4065-8a66-22e462448c04"
+          }
+        ],
+        "resourceVersion": "7214",
+        "uid": "25e55bb3-4bb8-4e39-9421-8f200d65c53f"
+      },
+      "spec": {
+        "behavior": {
+          "scaleDown": {
+            "policies": [
+              {
+                "periodSeconds": 60,
+                "type": "Pods",
+                "value": 1
+              }
+            ],
+            "selectPolicy": "Max",
+            "stabilizationWindowSeconds": 600
+          },
+          "scaleUp": {
+            "policies": [
+              {
+                "periodSeconds": 60,
+                "type": "Pods",
+                "value": 1
+              }
+            ],
+            "selectPolicy": "Max",
+            "stabilizationWindowSeconds": 0
+          }
+        },
+        "maxReplicas": 2,
+        "metrics": [
+          {
+            "external": {
+              "metric": {
+                "name": "s0-prometheus",
+                "selector": {
+                  "matchLabels": {
+                    "scaledobject.keda.sh/name": "vllm"
+                  }
+                }
+              },
+              "target": {
+                "averageValue": "1",
+                "type": "AverageValue"
+              }
+            },
+            "type": "External"
+          }
+        ],
+        "minReplicas": 1,
+        "scaleTargetRef": {
+          "apiVersion": "apps/v1",
+          "kind": "Deployment",
+          "name": "vllm"
+        }
+      },
+      "status": {
+        "conditions": [
+          {
+            "lastTransitionTime": "2026-08-23T14:10:06Z",
+            "message": "recent recommendations were higher than current one, applying the highest recent recommendation",
+            "reason": "ScaleDownStabilized",
+            "status": "True",
+            "type": "AbleToScale"
+          },
+          {
+            "lastTransitionTime": "2026-08-23T14:10:06Z",
+            "message": "the HPA was able to successfully calculate a replica count from external metric s0-prometheus(&LabelSelector{MatchLabels:map[string]string{scaledobject.keda.sh/name: vllm,},MatchExpressions:[]LabelSelectorRequirement{},})",
+            "reason": "ValidMetricFound",
+            "status": "True",
+            "type": "ScalingActive"
+          },
+          {
+            "lastTransitionTime": "2026-08-23T14:21:52Z",
+            "message": "the desired count is within the acceptable range",
+            "reason": "DesiredWithinRange",
+            "status": "False",
+            "type": "ScalingLimited"
+          }
+        ],
+        "currentMetrics": [
+          {
+            "external": {
+              "current": {
+                "averageValue": "0"
+              },
+              "metric": {
+                "name": "s0-prometheus",
+                "selector": {
+                  "matchLabels": {
+                    "scaledobject.keda.sh/name": "vllm"
+                  }
+                }
+              }
+            },
+            "type": "External"
+          }
+        ],
+        "currentReplicas": 2,
+        "desiredReplicas": 2,
+        "lastScaleTime": "2026-08-23T14:13:51Z"
+      }
+    }
+  ]
+}

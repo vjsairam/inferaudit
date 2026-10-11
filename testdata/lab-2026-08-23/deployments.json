@@ -1,0 +1,160 @@
+{
+  "apiVersion": "v1",
+  "kind": "List",
+  "items": [
+    {
+      "apiVersion": "apps/v1",
+      "kind": "Deployment",
+      "metadata": {
+        "name": "vllm",
+        "namespace": "model-serving",
+        "labels": {
+          "app.kubernetes.io/name": "vllm",
+          "app.kubernetes.io/instance": "vllm",
+          "app.kubernetes.io/managed-by": "Helm",
+          "helm.sh/chart": "vllm-0.1.0"
+        },
+        "uid": "d7fdf26a-6fda-4118-9279-b22fa7e477c6",
+        "creationTimestamp": "2026-08-23T14:02:05Z"
+      },
+      "spec": {
+        "selector": {
+          "matchLabels": {
+            "app.kubernetes.io/name": "vllm",
+            "app.kubernetes.io/instance": "vllm"
+          }
+        },
+        "strategy": {
+          "type": "Recreate"
+        },
+        "template": {
+          "metadata": {
+            "labels": {
+              "app.kubernetes.io/name": "vllm",
+              "app.kubernetes.io/instance": "vllm"
+            }
+          },
+          "spec": {
+            "enableServiceLinks": false,
+            "automountServiceAccountToken": false,
+            "nodeSelector": {
+              "accelerator": "nvidia",
+              "workload": "gpu"
+            },
+            "tolerations": [
+              {
+                "effect": "NoSchedule",
+                "key": "nvidia.com/gpu",
+                "operator": "Equal",
+                "value": "true"
+              }
+            ],
+            "containers": [
+              {
+                "name": "vllm",
+                "image": "vllm/vllm-openai@sha256:0a51ea5b4ae2dc5d81890e5173f54203d2a3ae0cfffe51b8fd2afd4391bfd967",
+                "imagePullPolicy": "IfNotPresent",
+                "args": [
+                  "--model",
+                  "Qwen/Qwen2.5-7B-Instruct-AWQ",
+                  "--revision",
+                  "b25037543e9394b818fdfca67ab2a00ecc7dd641",
+                  "--served-model-name",
+                  "lab-private",
+                  "--host",
+                  "0.0.0.0",
+                  "--port",
+                  "8000",
+                  "--dtype",
+                  "half",
+                  "--quantization",
+                  "awq",
+                  "--max-model-len",
+                  "8192",
+                  "--gpu-memory-utilization",
+                  "0.90",
+                  "--tensor-parallel-size",
+                  "1",
+                  "--max-num-seqs",
+                  "32",
+                  "--generation-config",
+                  "vllm",
+                  "--enable-prefix-caching",
+                  "--api-key",
+                  "$(VLLM_API_KEY)"
+                ],
+                "env": [
+                  {
+                    "name": "VLLM_API_KEY",
+                    "valueFrom": {
+                      "secretKeyRef": {
+                        "name": "vllm-secrets",
+                        "key": "VLLM_API_KEY"
+                      }
+                    }
+                  }
+                ],
+                "ports": [
+                  {
+                    "name": "http",
+                    "containerPort": 8000
+                  }
+                ],
+                "startupProbe": {
+                  "httpGet": {
+                    "path": "/health",
+                    "port": "http"
+                  },
+                  "periodSeconds": 10,
+                  "timeoutSeconds": 3,
+                  "failureThreshold": 90
+                },
+                "readinessProbe": {
+                  "httpGet": {
+                    "path": "/health",
+                    "port": "http"
+                  },
+                  "periodSeconds": 10,
+                  "timeoutSeconds": 3,
+                  "failureThreshold": 6
+                },
+                "resources": {
+                  "limits": {
+                    "cpu": "4",
+                    "memory": "20Gi",
+                    "nvidia.com/gpu": "1"
+                  },
+                  "requests": {
+                    "cpu": "2",
+                    "memory": "12Gi",
+                    "nvidia.com/gpu": "1"
+                  }
+                },
+                "securityContext": {
+                  "allowPrivilegeEscalation": false,
+                  "capabilities": {
+                    "drop": [
+                      "ALL"
+                    ]
+                  }
+                },
+                "volumeMounts": [
+                  {
+                    "name": "model-cache",
+                    "mountPath": "/root/.cache/huggingface"
+                  }
+                ]
+              }
+            ],
+            "volumes": [
+              {
+                "name": "model-cache",
+                "emptyDir": {}
+              }
+            ]
+          }
+        }
+      }
+    }
+  ]
+}

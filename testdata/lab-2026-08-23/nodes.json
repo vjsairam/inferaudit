@@ -1,0 +1,47 @@
+{
+  "apiVersion": "v1",
+  "kind": "List",
+  "items": [
+    {
+      "apiVersion": "v1",
+      "kind": "Node",
+      "metadata": {
+        "name": "ip-10-42-10-131.ec2.internal",
+        "labels": {
+          "node.kubernetes.io/instance-type": "g6.xlarge"
+        }
+      },
+      "status": {
+        "allocatable": {
+          "nvidia.com/gpu": "1"
+        }
+      }
+    },
+    {
+      "apiVersion": "v1",
+      "kind": "Node",
+      "metadata": {
+        "name": "ip-10-42-11-99.ec2.internal",
+        "labels": {
+          "node.kubernetes.io/instance-type": "g6.xlarge"
+        }
+      },
+      "status": {
+        "allocatable": {
+          "nvidia.com/gpu": "1"
+        }
+      }
+    },
+    {
+      "apiVersion": "v1",
+      "kind": "Node",
+      "metadata": {
+        "name": "ip-10-42-10-89.ec2.internal",
+        "labels": {}
+      },
+      "status": {
+        "allocatable": {}
+      }
+    }
+  ]
+}

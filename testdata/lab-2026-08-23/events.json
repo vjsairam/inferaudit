@@ -1,0 +1,741 @@
+{
+  "apiVersion": "v1",
+  "items": [
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2026-08-23T14:02:05Z",
+      "involvedObject": {
+        "apiVersion": "v1",
+        "kind": "Pod",
+        "name": "vllm-5f577ccf85-llq95",
+        "namespace": "model-serving",
+        "resourceVersion": "3022",
+        "uid": "7578a9c6-3a67-41c2-b1b4-5f25857c3d78"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2026-08-23T14:02:05Z",
+      "message": "Successfully assigned model-serving/vllm-5f577ccf85-llq95 to ip-10-42-10-131.ec2.internal",
+      "metadata": {
+        "creationTimestamp": "2026-08-23T14:02:05Z",
+        "name": "vllm-5f577ccf85-llq95.18ce7412a201038f",
+        "namespace": "model-serving",
+        "resourceVersion": "3027",
+        "uid": "95bc1467-7976-4a8e-ac12-939699ee80a8"
+      },
+      "reason": "Scheduled",
+      "reportingComponent": "default-scheduler",
+      "reportingInstance": "",
+      "source": {
+        "component": "default-scheduler"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2026-08-23T14:02:05Z",
+      "involvedObject": {
+        "apiVersion": "apps/v1",
+        "kind": "Deployment",
+        "name": "vllm",
+        "namespace": "model-serving",
+        "resourceVersion": "3018",
+        "uid": "d7fdf26a-6fda-4118-9279-b22fa7e477c6"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2026-08-23T14:02:05Z",
+      "message": "Scaled up replica set vllm-5f577ccf85 from 0 to 1",
+      "metadata": {
+        "creationTimestamp": "2026-08-23T14:02:05Z",
+        "name": "vllm.18ce7412a022f916",
+        "namespace": "model-serving",
+        "resourceVersion": "3021",
+        "uid": "7ae2cf71-9f29-4761-af14-2d1dd792a85d"
+      },
+      "reason": "ScalingReplicaSet",
+      "reportingComponent": "deployment-controller",
+      "reportingInstance": "",
+      "source": {
+        "component": "deployment-controller"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2026-08-23T14:02:05Z",
+      "involvedObject": {
+        "apiVersion": "apps/v1",
+        "kind": "ReplicaSet",
+        "name": "vllm-5f577ccf85",
+        "namespace": "model-serving",
+        "resourceVersion": "3019",
+        "uid": "f1b4389c-5fd4-4326-a0fd-d4f750cc9e41"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2026-08-23T14:02:05Z",
+      "message": "Created pod: vllm-5f577ccf85-llq95",
+      "metadata": {
+        "creationTimestamp": "2026-08-23T14:02:05Z",
+        "name": "vllm-5f577ccf85.18ce7412a16a8f64",
+        "namespace": "model-serving",
+        "resourceVersion": "3026",
+        "uid": "26cc2696-73a4-49b4-8166-de9e76aa589d"
+      },
+      "reason": "SuccessfulCreate",
+      "reportingComponent": "replicaset-controller",
+      "reportingInstance": "",
+      "source": {
+        "component": "replicaset-controller"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2026-08-23T14:02:06Z",
+      "involvedObject": {
+        "apiVersion": "v1",
+        "fieldPath": "spec.containers{vllm}",
+        "kind": "Pod",
+        "name": "vllm-5f577ccf85-llq95",
+        "namespace": "model-serving",
+        "resourceVersion": "3024",
+        "uid": "7578a9c6-3a67-41c2-b1b4-5f25857c3d78"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2026-08-23T14:02:06Z",
+      "message": "Pulling image \"vllm/vllm-openai@sha256:0a51ea5b4ae2dc5d81890e5173f54203d2a3ae0cfffe51b8fd2afd4391bfd967\"",
+      "metadata": {
+        "creationTimestamp": "2026-08-23T14:02:06Z",
+        "name": "vllm-5f577ccf85-llq95.18ce7412c4243ed1",
+        "namespace": "model-serving",
+        "resourceVersion": "3033",
+        "uid": "1ba88bc9-4e2b-416f-85cf-0345b519069d"
+      },
+      "reason": "Pulling",
+      "reportingComponent": "kubelet",
+      "reportingInstance": "ip-10-42-10-131.ec2.internal",
+      "source": {
+        "component": "kubelet",
+        "host": "ip-10-42-10-131.ec2.internal"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2026-08-23T14:06:45Z",
+      "involvedObject": {
+        "apiVersion": "v1",
+        "fieldPath": "spec.containers{vllm}",
+        "kind": "Pod",
+        "name": "vllm-5f577ccf85-llq95",
+        "namespace": "model-serving",
+        "resourceVersion": "3024",
+        "uid": "7578a9c6-3a67-41c2-b1b4-5f25857c3d78"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2026-08-23T14:06:45Z",
+      "message": "Successfully pulled image \"vllm/vllm-openai@sha256:0a51ea5b4ae2dc5d81890e5173f54203d2a3ae0cfffe51b8fd2afd4391bfd967\" in 4m39.814s (4m39.814s including waiting). Image size: 9110698465 bytes.",
+      "metadata": {
+        "creationTimestamp": "2026-08-23T14:06:45Z",
+        "name": "vllm-5f577ccf85-llq95.18ce7453ea5f9994",
+        "namespace": "model-serving",
+        "resourceVersion": "3957",
+        "uid": "1cb4d30a-7659-4901-a09f-7275e3e0fbdf"
+      },
+      "reason": "Pulled",
+      "reportingComponent": "kubelet",
+      "reportingInstance": "ip-10-42-10-131.ec2.internal",
+      "source": {
+        "component": "kubelet",
+        "host": "ip-10-42-10-131.ec2.internal"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2026-08-23T14:06:46Z",
+      "involvedObject": {
+        "apiVersion": "v1",
+        "fieldPath": "spec.containers{vllm}",
+        "kind": "Pod",
+        "name": "vllm-5f577ccf85-llq95",
+        "namespace": "model-serving",
+        "resourceVersion": "3024",
+        "uid": "7578a9c6-3a67-41c2-b1b4-5f25857c3d78"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2026-08-23T14:06:46Z",
+      "message": "Created container: vllm",
+      "metadata": {
+        "creationTimestamp": "2026-08-23T14:06:46Z",
+        "name": "vllm-5f577ccf85-llq95.18ce7453faad9d0c",
+        "namespace": "model-serving",
+        "resourceVersion": "3958",
+        "uid": "e33b6efa-8f8c-4f72-a991-427a4c5f8d3b"
+      },
+      "reason": "Created",
+      "reportingComponent": "kubelet",
+      "reportingInstance": "ip-10-42-10-131.ec2.internal",
+      "source": {
+        "component": "kubelet",
+        "host": "ip-10-42-10-131.ec2.internal"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2026-08-23T14:06:50Z",
+      "involvedObject": {
+        "apiVersion": "v1",
+        "fieldPath": "spec.containers{vllm}",
+        "kind": "Pod",
+        "name": "vllm-5f577ccf85-llq95",
+        "namespace": "model-serving",
+        "resourceVersion": "3024",
+        "uid": "7578a9c6-3a67-41c2-b1b4-5f25857c3d78"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2026-08-23T14:06:50Z",
+      "message": "Started container vllm",
+      "metadata": {
+        "creationTimestamp": "2026-08-23T14:06:50Z",
+        "name": "vllm-5f577ccf85-llq95.18ce7454f9448a3f",
+        "namespace": "model-serving",
+        "resourceVersion": "3975",
+        "uid": "b0996480-5634-458f-9198-8450cc6279eb"
+      },
+      "reason": "Started",
+      "reportingComponent": "kubelet",
+      "reportingInstance": "ip-10-42-10-131.ec2.internal",
+      "source": {
+        "component": "kubelet",
+        "host": "ip-10-42-10-131.ec2.internal"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 17,
+      "eventTime": null,
+      "firstTimestamp": "2026-08-23T14:06:55Z",
+      "involvedObject": {
+        "apiVersion": "v1",
+        "fieldPath": "spec.containers{vllm}",
+        "kind": "Pod",
+        "name": "vllm-5f577ccf85-llq95",
+        "namespace": "model-serving",
+        "resourceVersion": "3024",
+        "uid": "7578a9c6-3a67-41c2-b1b4-5f25857c3d78"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2026-08-23T14:09:35Z",
+      "message": "Startup probe failed: Get \"http://10.42.10.59:8000/health\": dial tcp 10.42.10.59:8000: connect: connection refused",
+      "metadata": {
+        "creationTimestamp": "2026-08-23T14:06:55Z",
+        "name": "vllm-5f577ccf85-llq95.18ce74563b116838",
+        "namespace": "model-serving",
+        "resourceVersion": "4552",
+        "uid": "8f22a644-3f93-44ae-bf6e-298fb53abbc1"
+      },
+      "reason": "Unhealthy",
+      "reportingComponent": "kubelet",
+      "reportingInstance": "ip-10-42-10-131.ec2.internal",
+      "source": {
+        "component": "kubelet",
+        "host": "ip-10-42-10-131.ec2.internal"
+      },
+      "type": "Warning"
+    },
+    {
+      "action": "KEDAScalerInfo",
+      "apiVersion": "v1",
+      "eventTime": "2026-08-23T14:09:50.761070Z",
+      "firstTimestamp": null,
+      "involvedObject": {
+        "apiVersion": "keda.sh/v1alpha1",
+        "kind": "ScaledObject",
+        "name": "vllm",
+        "namespace": "model-serving",
+        "uid": "91562342-7c2a-4065-8a66-22e462448c04"
+      },
+      "kind": "Event",
+      "lastTimestamp": null,
+      "message": "PollingInterval is configured but is not relevant. PollingInterval is only relevant when minReplicaCount = 0 or idleReplicaCount = 0 or useCachedMetrics is enabled",
+      "metadata": {
+        "creationTimestamp": "2026-08-23T14:09:50Z",
+        "name": "vllm.18ce747ef6638ae2",
+        "namespace": "model-serving",
+        "resourceVersion": "4691",
+        "uid": "7cb7fd2a-cb2e-47fa-ad54-ca69c93e4989"
+      },
+      "reason": "KEDAScalerInfo",
+      "reportingComponent": "keda-admission",
+      "reportingInstance": "keda-admission-keda-admission-webhooks-6f866cc8ff-s7wd9",
+      "series": {
+        "count": 2,
+        "lastObservedTime": "2026-08-23T14:09:50.761330Z"
+      },
+      "source": {},
+      "type": "Normal"
+    },
+    {
+      "action": "KEDAScalerInfo",
+      "apiVersion": "v1",
+      "eventTime": "2026-08-23T14:09:50.989351Z",
+      "firstTimestamp": null,
+      "involvedObject": {
+        "apiVersion": "keda.sh/v1alpha1",
+        "kind": "ScaledObject",
+        "name": "vllm",
+        "namespace": "model-serving",
+        "resourceVersion": "4614",
+        "uid": "91562342-7c2a-4065-8a66-22e462448c04"
+      },
+      "kind": "Event",
+      "lastTimestamp": null,
+      "message": "CooldownPeriod is configured but is not relevant. CooldownPeriod is only relevant when minReplicaCount = 0 or idleReplicaCount = 0",
+      "metadata": {
+        "creationTimestamp": "2026-08-23T14:09:50Z",
+        "name": "vllm.18ce747f03fea3c9",
+        "namespace": "model-serving",
+        "resourceVersion": "4617",
+        "uid": "e9c01477-6ac6-4fc1-81c6-3349081c9f62"
+      },
+      "reason": "KEDAScalerInfo",
+      "reportingComponent": "keda-admission",
+      "reportingInstance": "keda-admission-keda-admission-webhooks-6f866cc8ff-s7wd9",
+      "series": {
+        "count": 2,
+        "lastObservedTime": "2026-08-23T14:09:50.990491Z"
+      },
+      "source": {},
+      "type": "Normal"
+    },
+    {
+      "action": "ScaledObject is ready for scaling",
+      "apiVersion": "v1",
+      "eventTime": "2026-08-23T14:09:51.249106Z",
+      "firstTimestamp": null,
+      "involvedObject": {
+        "apiVersion": "keda.sh/v1alpha1",
+        "kind": "ScaledObject",
+        "name": "vllm",
+        "namespace": "model-serving",
+        "resourceVersion": "4627",
+        "uid": "91562342-7c2a-4065-8a66-22e462448c04"
+      },
+      "kind": "Event",
+      "lastTimestamp": null,
+      "message": "ScaledObject is ready for scaling",
+      "metadata": {
+        "creationTimestamp": "2026-08-23T14:09:51Z",
+        "name": "vllm.18ce747f137a3e96",
+        "namespace": "model-serving",
+        "resourceVersion": "4629",
+        "uid": "809ba79a-657a-4a2c-b9ab-5001667355e7"
+      },
+      "reason": "ScaledObjectReady",
+      "reportingComponent": "keda-operator",
+      "reportingInstance": "keda-operator-keda-operator-6799896486-6d42b",
+      "source": {},
+      "type": "Normal"
+    },
+    {
+      "action": "ScalersWatchStarted",
+      "apiVersion": "v1",
+      "eventTime": "2026-08-23T14:09:51.248997Z",
+      "firstTimestamp": null,
+      "involvedObject": {
+        "apiVersion": "keda.sh/v1alpha1",
+        "kind": "ScaledObject",
+        "name": "vllm",
+        "namespace": "model-serving",
+        "resourceVersion": "4627",
+        "uid": "91562342-7c2a-4065-8a66-22e462448c04"
+      },
+      "kind": "Event",
+      "lastTimestamp": null,
+      "message": "Started scalers watch",
+      "metadata": {
+        "creationTimestamp": "2026-08-23T14:09:51Z",
+        "name": "vllm.18ce747f13788f71",
+        "namespace": "model-serving",
+        "resourceVersion": "4628",
+        "uid": "27f5a526-f494-4885-968d-51d251879acc"
+      },
+      "reason": "KEDAScalersStarted",
+      "reportingComponent": "keda-operator",
+      "reportingInstance": "keda-operator-keda-operator-6799896486-6d42b",
+      "source": {},
+      "type": "Normal"
+    },
+    {
+      "action": "KEDAScalersStarted",
+      "apiVersion": "v1",
+      "eventTime": "2026-08-23T14:09:51.229584Z",
+      "firstTimestamp": null,
+      "involvedObject": {
+        "apiVersion": "keda.sh/v1alpha1",
+        "kind": "ScaledObject",
+        "name": "vllm",
+        "namespace": "model-serving",
+        "resourceVersion": "4623",
+        "uid": "91562342-7c2a-4065-8a66-22e462448c04"
+      },
+      "kind": "Event",
+      "lastTimestamp": null,
+      "message": "Scaler prometheus is built",
+      "metadata": {
+        "creationTimestamp": "2026-08-23T14:09:51Z",
+        "name": "vllm.18ce747f125073ab",
+        "namespace": "model-serving",
+        "resourceVersion": "4624",
+        "uid": "675d1e95-faf6-4b65-aa14-0d8796598eca"
+      },
+      "reason": "KEDAScalersStarted",
+      "reportingComponent": "keda-operator",
+      "reportingInstance": "keda-operator-keda-operator-6799896486-6d42b",
+      "source": {},
+      "type": "Normal"
+    },
+    {
+      "action": "KEDAScalerInfo",
+      "apiVersion": "v1",
+      "eventTime": "2026-08-23T14:09:51.006051Z",
+      "firstTimestamp": null,
+      "involvedObject": {
+        "apiVersion": "keda.sh/v1alpha1",
+        "kind": "ScaledObject",
+        "name": "vllm",
+        "namespace": "model-serving",
+        "resourceVersion": "4618",
+        "uid": "91562342-7c2a-4065-8a66-22e462448c04"
+      },
+      "kind": "Event",
+      "lastTimestamp": null,
+      "message": "PollingInterval is configured but is not relevant. PollingInterval is only relevant when minReplicaCount = 0 or idleReplicaCount = 0 or useCachedMetrics is enabled",
+      "metadata": {
+        "creationTimestamp": "2026-08-23T14:09:51Z",
+        "name": "vllm.18ce747f04fd7d53",
+        "namespace": "model-serving",
+        "resourceVersion": "4621",
+        "uid": "655ab6a2-6749-42db-bb8b-1ae2a3e4b47d"
+      },
+      "reason": "KEDAScalerInfo",
+      "reportingComponent": "keda-admission",
+      "reportingInstance": "keda-admission-keda-admission-webhooks-6f866cc8ff-s7wd9",
+      "series": {
+        "count": 2,
+        "lastObservedTime": "2026-08-23T14:09:51.006237Z"
+      },
+      "source": {},
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2026-08-23T14:13:51Z",
+      "involvedObject": {
+        "apiVersion": "autoscaling/v2",
+        "kind": "HorizontalPodAutoscaler",
+        "name": "keda-hpa-vllm",
+        "namespace": "model-serving",
+        "resourceVersion": "4706",
+        "uid": "25e55bb3-4bb8-4e39-9421-8f200d65c53f"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2026-08-23T14:13:51Z",
+      "message": "New size: 2; reason: external metric s0-prometheus(&LabelSelector{MatchLabels:map[string]string{scaledobject.keda.sh/name: vllm,},MatchExpressions:[]LabelSelectorRequirement{},}) above target",
+      "metadata": {
+        "creationTimestamp": "2026-08-23T14:13:51Z",
+        "name": "keda-hpa-vllm.18ce74b707b118fa",
+        "namespace": "model-serving",
+        "resourceVersion": "5554",
+        "uid": "12a09575-f19b-4793-a414-44654a07555d"
+      },
+      "reason": "SuccessfulRescale",
+      "reportingComponent": "horizontal-pod-autoscaler",
+      "reportingInstance": "",
+      "source": {
+        "component": "horizontal-pod-autoscaler"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2026-08-23T14:13:51Z",
+      "involvedObject": {
+        "apiVersion": "v1",
+        "kind": "Pod",
+        "name": "vllm-5f577ccf85-j27ct",
+        "namespace": "model-serving",
+        "resourceVersion": "5557",
+        "uid": "242067ba-43e1-4e28-9f84-86ca7a035039"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2026-08-23T14:13:51Z",
+      "message": "Successfully assigned model-serving/vllm-5f577ccf85-j27ct to ip-10-42-11-99.ec2.internal",
+      "metadata": {
+        "creationTimestamp": "2026-08-23T14:13:51Z",
+        "name": "vllm-5f577ccf85-j27ct.18ce74b70a0f320f",
+        "namespace": "model-serving",
+        "resourceVersion": "5562",
+        "uid": "8c95b53c-ef58-4315-8827-793921268de5"
+      },
+      "reason": "Scheduled",
+      "reportingComponent": "default-scheduler",
+      "reportingInstance": "",
+      "source": {
+        "component": "default-scheduler"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2026-08-23T14:13:51Z",
+      "involvedObject": {
+        "apiVersion": "apps/v1",
+        "kind": "ReplicaSet",
+        "name": "vllm-5f577ccf85",
+        "namespace": "model-serving",
+        "resourceVersion": "5553",
+        "uid": "f1b4389c-5fd4-4326-a0fd-d4f750cc9e41"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2026-08-23T14:13:51Z",
+      "message": "Created pod: vllm-5f577ccf85-j27ct",
+      "metadata": {
+        "creationTimestamp": "2026-08-23T14:13:51Z",
+        "name": "vllm-5f577ccf85.18ce74b70979a87b",
+        "namespace": "model-serving",
+        "resourceVersion": "5561",
+        "uid": "fae0449a-3d7e-4202-83e2-370cabc041c0"
+      },
+      "reason": "SuccessfulCreate",
+      "reportingComponent": "replicaset-controller",
+      "reportingInstance": "",
+      "source": {
+        "component": "replicaset-controller"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2026-08-23T14:13:51Z",
+      "involvedObject": {
+        "apiVersion": "apps/v1",
+        "kind": "Deployment",
+        "name": "vllm",
+        "namespace": "model-serving",
+        "resourceVersion": "5551",
+        "uid": "d7fdf26a-6fda-4118-9279-b22fa7e477c6"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2026-08-23T14:13:51Z",
+      "message": "Scaled up replica set vllm-5f577ccf85 from 1 to 2",
+      "metadata": {
+        "creationTimestamp": "2026-08-23T14:13:51Z",
+        "name": "vllm.18ce74b7085df4c7",
+        "namespace": "model-serving",
+        "resourceVersion": "5555",
+        "uid": "d96be6a1-5399-4fc6-80ad-047b51c15032"
+      },
+      "reason": "ScalingReplicaSet",
+      "reportingComponent": "deployment-controller",
+      "reportingInstance": "",
+      "source": {
+        "component": "deployment-controller"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2026-08-23T14:13:52Z",
+      "involvedObject": {
+        "apiVersion": "v1",
+        "fieldPath": "spec.containers{vllm}",
+        "kind": "Pod",
+        "name": "vllm-5f577ccf85-j27ct",
+        "namespace": "model-serving",
+        "resourceVersion": "5559",
+        "uid": "242067ba-43e1-4e28-9f84-86ca7a035039"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2026-08-23T14:13:52Z",
+      "message": "Pulling image \"vllm/vllm-openai@sha256:0a51ea5b4ae2dc5d81890e5173f54203d2a3ae0cfffe51b8fd2afd4391bfd967\"",
+      "metadata": {
+        "creationTimestamp": "2026-08-23T14:13:52Z",
+        "name": "vllm-5f577ccf85-j27ct.18ce74b72b5dac33",
+        "namespace": "model-serving",
+        "resourceVersion": "5568",
+        "uid": "d7d8ed85-35f6-48ed-a02a-e888332c2f66"
+      },
+      "reason": "Pulling",
+      "reportingComponent": "kubelet",
+      "reportingInstance": "ip-10-42-11-99.ec2.internal",
+      "source": {
+        "component": "kubelet",
+        "host": "ip-10-42-11-99.ec2.internal"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2026-08-23T14:18:30Z",
+      "involvedObject": {
+        "apiVersion": "v1",
+        "fieldPath": "spec.containers{vllm}",
+        "kind": "Pod",
+        "name": "vllm-5f577ccf85-j27ct",
+        "namespace": "model-serving",
+        "resourceVersion": "5559",
+        "uid": "242067ba-43e1-4e28-9f84-86ca7a035039"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2026-08-23T14:18:30Z",
+      "message": "Successfully pulled image \"vllm/vllm-openai@sha256:0a51ea5b4ae2dc5d81890e5173f54203d2a3ae0cfffe51b8fd2afd4391bfd967\" in 4m38.286s (4m38.286s including waiting). Image size: 9110698465 bytes.",
+      "metadata": {
+        "creationTimestamp": "2026-08-23T14:18:30Z",
+        "name": "vllm-5f577ccf85-j27ct.18ce74f7f68f70fe",
+        "namespace": "model-serving",
+        "resourceVersion": "6507",
+        "uid": "90129042-35aa-4ffa-88ac-0ae88f575b43"
+      },
+      "reason": "Pulled",
+      "reportingComponent": "kubelet",
+      "reportingInstance": "ip-10-42-11-99.ec2.internal",
+      "source": {
+        "component": "kubelet",
+        "host": "ip-10-42-11-99.ec2.internal"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2026-08-23T14:18:30Z",
+      "involvedObject": {
+        "apiVersion": "v1",
+        "fieldPath": "spec.containers{vllm}",
+        "kind": "Pod",
+        "name": "vllm-5f577ccf85-j27ct",
+        "namespace": "model-serving",
+        "resourceVersion": "5559",
+        "uid": "242067ba-43e1-4e28-9f84-86ca7a035039"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2026-08-23T14:18:30Z",
+      "message": "Created container: vllm",
+      "metadata": {
+        "creationTimestamp": "2026-08-23T14:18:30Z",
+        "name": "vllm-5f577ccf85-j27ct.18ce74f8025f9ed0",
+        "namespace": "model-serving",
+        "resourceVersion": "6510",
+        "uid": "53abc0ab-2f99-43a4-98e4-f4f540b8abb9"
+      },
+      "reason": "Created",
+      "reportingComponent": "kubelet",
+      "reportingInstance": "ip-10-42-11-99.ec2.internal",
+      "source": {
+        "component": "kubelet",
+        "host": "ip-10-42-11-99.ec2.internal"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 1,
+      "eventTime": null,
+      "firstTimestamp": "2026-08-23T14:18:35Z",
+      "involvedObject": {
+        "apiVersion": "v1",
+        "fieldPath": "spec.containers{vllm}",
+        "kind": "Pod",
+        "name": "vllm-5f577ccf85-j27ct",
+        "namespace": "model-serving",
+        "resourceVersion": "5559",
+        "uid": "242067ba-43e1-4e28-9f84-86ca7a035039"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2026-08-23T14:18:35Z",
+      "message": "Started container vllm",
+      "metadata": {
+        "creationTimestamp": "2026-08-23T14:18:35Z",
+        "name": "vllm-5f577ccf85-j27ct.18ce74f90c00aa07",
+        "namespace": "model-serving",
+        "resourceVersion": "6524",
+        "uid": "08cac801-f295-4660-8563-3f01362e2bb3"
+      },
+      "reason": "Started",
+      "reportingComponent": "kubelet",
+      "reportingInstance": "ip-10-42-11-99.ec2.internal",
+      "source": {
+        "component": "kubelet",
+        "host": "ip-10-42-11-99.ec2.internal"
+      },
+      "type": "Normal"
+    },
+    {
+      "apiVersion": "v1",
+      "count": 17,
+      "eventTime": null,
+      "firstTimestamp": "2026-08-23T14:18:41Z",
+      "involvedObject": {
+        "apiVersion": "v1",
+        "fieldPath": "spec.containers{vllm}",
+        "kind": "Pod",
+        "name": "vllm-5f577ccf85-j27ct",
+        "namespace": "model-serving",
+        "resourceVersion": "5559",
+        "uid": "242067ba-43e1-4e28-9f84-86ca7a035039"
+      },
+      "kind": "Event",
+      "lastTimestamp": "2026-08-23T14:21:21Z",
+      "message": "Startup probe failed: Get \"http://10.42.11.162:8000/health\": dial tcp 10.42.11.162:8000: connect: connection refused",
+      "metadata": {
+        "creationTimestamp": "2026-08-23T14:18:41Z",
+        "name": "vllm-5f577ccf85-j27ct.18ce74faa2029823",
+        "namespace": "model-serving",
+        "resourceVersion": "7102",
+        "uid": "9ef3d2fc-57a5-4609-8512-9ce6fa817ad2"
+      },
+      "reason": "Unhealthy",
+      "reportingComponent": "kubelet",
+      "reportingInstance": "ip-10-42-11-99.ec2.internal",
+      "source": {
+        "component": "kubelet",
+        "host": "ip-10-42-11-99.ec2.internal"
+      },
+      "type": "Warning"
+    }
+  ],
+  "kind": "List",
+  "metadata": {
+    "resourceVersion": ""
+  }
+}
