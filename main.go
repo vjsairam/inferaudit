@@ -8,6 +8,7 @@ import (
 	"fmt"
 	"os"
 	"path/filepath"
+	"runtime/debug"
 	"strings"
 
 	"github.com/vjsairam/inferaudit/internal/audit"
@@ -16,6 +17,8 @@ import (
 	"github.com/vjsairam/inferaudit/internal/report"
 )
 
+// version is set at release time with -ldflags "-X main.version=...". Builds from
+// `go install module@version` fall back to the module version Go records in the binary.
 var version = "dev"
 
 const usage = `inferaudit reviews how AI models are served on a Kubernetes cluster.
@@ -63,7 +66,7 @@ func run(args []string) error {
 		return fmt.Errorf("unexpected argument %q (flags go before it, and --from takes a folder)", fs.Arg(0))
 	}
 	if *showVer {
-		fmt.Println("inferaudit", version)
+		fmt.Println("inferaudit", buildVersion())
 		return nil
 	}
 	if *htmlOut != "" && *jsonOut != "" && samePath(*htmlOut, *jsonOut) {
@@ -88,7 +91,7 @@ func run(args []string) error {
 		return err
 	}
 
-	r := audit.Run(snap, audit.Options{Version: version, Selector: sel})
+	r := audit.Run(snap, audit.Options{Version: buildVersion(), Selector: sel})
 
 	if *htmlOut != "" {
 		if err := writeFile(*htmlOut, func(f *os.File) error { return report.HTML(f, r) }); err != nil {
@@ -149,6 +152,16 @@ func writeFile(path string, write func(*os.File) error) error {
 		return err
 	}
 	return os.Rename(f.Name(), path)
+}
+
+func buildVersion() string {
+	if version != "dev" {
+		return version
+	}
+	if info, ok := debug.ReadBuildInfo(); ok && info.Main.Version != "" && info.Main.Version != "(devel)" {
+		return info.Main.Version
+	}
+	return version
 }
 
 // samePath reports whether two output paths land on the same file. Each folder is resolved
