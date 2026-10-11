@@ -1,0 +1,194 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>inferaudit report{{with .Meta.Context}}: {{.}}{{end}}</title>
+<style>
+:root {
+  --bg: #ffffff; --paper: #f5f4f0; --ink: #262b33; --head: #13294b; --muted: #5d6673;
+  --rule: #d8dbdf; --grid: #e6e8eb; --link: #1d4e89;
+  --pull: #c25e1c; --load: #008c7a; --wait: #7d8591; --warn: #a8321f;
+  --sans: "IBM Plex Sans", system-ui, -apple-system, "Segoe UI", Helvetica, Arial, sans-serif;
+  --serif: "Source Serif 4", Georgia, "Times New Roman", serif;
+  --mono: ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #111317; --paper: #191c21; --ink: #dde1e6; --head: #e8edf3; --muted: #98a1ac;
+    --rule: #2d323a; --grid: #23272e; --link: #8db4e2;
+    --pull: #d9772f; --load: #29a295; --wait: #66707e; --warn: #f08a72;
+  }
+}
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--bg); color: var(--ink); font: 15px/1.55 var(--sans); -webkit-font-smoothing: antialiased; }
+main { max-width: 980px; margin: 0 auto; padding: 40px 20px 56px; }
+h1, h3 { font-family: var(--serif); color: var(--head); font-weight: 600; }
+h1 { font-size: 2rem; line-height: 1.2; margin: 4px 0 6px; overflow-wrap: anywhere; }
+h2 { font-size: 0.78rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.07em; color: var(--muted);
+  margin: 44px 0 14px; padding-bottom: 8px; border-bottom: 1px solid var(--rule); }
+h3 { font-size: 1.05rem; margin: 0 0 2px; overflow-wrap: anywhere; }
+a { color: var(--link); }
+code { font-family: var(--mono); font-size: 0.86em; overflow-wrap: anywhere; }
+.kicker { font-size: 0.78rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.07em; color: var(--muted); }
+.meta { color: var(--muted); font-size: 0.9rem; margin: 0; }
+.lede { font-family: var(--serif); font-size: 1.3rem; line-height: 1.4; color: var(--head); margin: 22px 0 0; max-width: 40em; }
+.banner { margin: 16px 0 0; padding: 8px 12px; border-left: 3px solid var(--pull); background: var(--paper); font-size: 0.9rem; }
+.kpis { display: grid; grid-template-columns: repeat(4, 1fr); border: 1px solid var(--rule); margin-top: 26px; }
+.kpi { padding: 12px 16px 14px; border-right: 1px solid var(--rule); min-width: 0; }
+.kpi:last-child { border-right: 0; }
+.kpi .label { font-size: 0.74rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); }
+.kpi .value { font-size: 1.7rem; font-weight: 600; color: var(--head); line-height: 1.25; }
+.kpi .sub { font-size: 0.8rem; color: var(--muted); overflow-wrap: anywhere; }
+.legend { display: flex; flex-wrap: wrap; gap: 4px 18px; font-size: 0.84rem; color: var(--muted); margin: 0 0 14px; }
+.key { display: inline-block; width: 12px; height: 12px; border-radius: 2px; margin-right: 6px; vertical-align: -1px; }
+.wait { background: var(--wait); } .pull { background: var(--pull); } .load { background: var(--load); }
+.workload { margin: 0 0 30px; }
+.workload .sub { color: var(--muted); font-size: 0.86rem; margin: 0 0 10px; overflow-wrap: anywhere; }
+.rows { position: relative; }
+.row { display: grid; grid-template-columns: 210px 1fr 74px; gap: 12px; align-items: center; min-height: 34px; margin-bottom: 6px; }
+.who { font-size: 0.84rem; line-height: 1.25; min-width: 0; }
+.who b { display: block; font-weight: 500; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.who span { color: var(--muted); font-size: 0.76rem; display: block; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.track { position: relative; height: 34px; }
+.track .grid { position: absolute; top: 3px; bottom: 3px; width: 1px; background: var(--grid); }
+.seg { position: absolute; top: 7px; height: 20px; border-radius: 3px; border-left: 2px solid var(--bg); }
+.total { font-size: 0.86rem; font-weight: 600; color: var(--head); text-align: right; white-space: nowrap; }
+.total.unknown { font-weight: 400; color: var(--muted); }
+.axis { display: grid; grid-template-columns: 210px 1fr 74px; gap: 12px; }
+.ticks { position: relative; height: 18px; font-size: 0.74rem; color: var(--muted); }
+.ticks span { position: absolute; transform: translateX(-50%); white-space: nowrap; }
+.ticks span:first-child { transform: none; }
+.flag { color: var(--muted); font-size: 0.8rem; margin: 2px 0 0 222px; }
+table { border-collapse: collapse; width: 100%; font-size: 0.86rem; }
+th, td { text-align: left; padding: 7px 10px 7px 0; border-bottom: 1px solid var(--rule); vertical-align: top; }
+th { color: var(--muted); font-weight: 600; font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.05em; }
+td code { white-space: nowrap; overflow-wrap: normal; }
+td.num, th.num { text-align: right; white-space: nowrap; font-variant-numeric: tabular-nums; }
+details { margin-top: 8px; font-size: 0.86rem; }
+summary { cursor: pointer; color: var(--muted); }
+.table-wrap { overflow-x: auto; }
+.finding { border-top: 1px solid var(--rule); padding: 14px 0 12px; display: grid; grid-template-columns: 74px 1fr; gap: 14px; }
+.badge { font-size: 0.72rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; padding: 2px 0; }
+.badge.check { color: var(--warn); }
+.badge.note { color: var(--muted); }
+.finding h4 { font-family: var(--sans); font-size: 0.98rem; color: var(--head); margin: 0 0 2px; overflow-wrap: anywhere; }
+.finding .where { color: var(--muted); font-size: 0.8rem; margin-bottom: 6px; overflow-wrap: anywhere; }
+.finding p { margin: 0 0 5px; font-size: 0.9rem; overflow-wrap: anywhere; }
+.finding p b { font-weight: 600; color: var(--head); }
+.gpubar { position: relative; height: 10px; background: var(--grid); border: 1px solid var(--rule); border-radius: 2px; min-width: 80px; }
+.gpubar i { position: absolute; left: 0; top: 0; bottom: 0; background: var(--load); border-radius: 2px; }
+ul.gaps { padding-left: 18px; font-size: 0.9rem; }
+footer { margin-top: 48px; padding-top: 14px; border-top: 1px solid var(--rule); color: var(--muted); font-size: 0.82rem; }
+@media (max-width: 720px) {
+  main { padding-top: 24px; }
+  h1 { font-size: 1.6rem; }
+  .kpis { grid-template-columns: 1fr 1fr; }
+  .kpi:nth-child(2) { border-right: 0; }
+  .kpi:nth-child(-n+2) { border-bottom: 1px solid var(--rule); }
+  .row, .axis { grid-template-columns: 1fr 64px; gap: 4px 10px; }
+  .row .who { grid-column: 1 / -1; }
+  .axis > div:first-child { display: none; }
+  .flag { margin-left: 0; }
+  .finding { grid-template-columns: 1fr; gap: 4px; }
+}
+</style>
+</head>
+<body>
+<main>
+  <div class="kicker">inferaudit report</div>
+  <h1>{{if .Meta.Context}}{{.Meta.Context}}{{else}}Cluster snapshot{{end}}</h1>
+  <p class="meta">{{if eq .Meta.Source "cluster"}}Read from the cluster{{if not .Meta.CollectedAt.IsZero}} at {{clock .Meta.CollectedAt}}{{end}}{{else}}Read from a saved snapshot{{if not .Meta.CollectedAt.IsZero}} taken at {{clock .Meta.CollectedAt}}{{end}}{{end}}{{if .Meta.Namespace}}, namespace {{.Meta.Namespace}}{{else if .Meta.AllNamespaces}}, all namespaces{{end}}.</p>
+  {{with .Meta.Note}}<p class="banner">{{.}}</p>{{end}}
+  {{if .Totals.SlowestPod}}<p class="lede">The slowest pod took {{dur .Totals.SlowestStart}} from creation to its latest Ready transition{{if .Totals.SlowestPull}}, {{dur .Totals.SlowestPull}} of it pulling the image{{end}}.</p>{{end}}
+
+  <div class="kpis">
+    <div class="kpi"><div class="label">Serving workloads</div><div class="value">{{.Totals.Workloads}}</div><div class="sub">{{.Totals.Pods}} pods running or starting</div></div>
+    <div class="kpi"><div class="label">Slowest to Ready</div>{{if .Totals.SlowestPod}}<div class="value">{{dur .Totals.SlowestStart}}</div><div class="sub">{{.Totals.SlowestPod}}, created to latest Ready</div>{{else}}<div class="value">n/a</div><div class="sub">no complete start in the snapshot</div>{{end}}</div>
+    <div class="kpi"><div class="label">GPUs requested</div>{{if .GPUNodes}}<div class="value">{{.Totals.GPUsRequested}} of {{.Totals.GPUsAllocatable}}</div><div class="sub">{{if eq .Totals.GPUScope "cluster"}}on {{len .GPUNodes}} GPU nodes{{else}}by pods in this namespace, on {{len .GPUNodes}} GPU nodes{{end}}</div>{{else}}<div class="value">n/a</div><div class="sub">no GPU nodes visible</div>{{end}}</div>
+    <div class="kpi"><div class="label">Worth checking</div><div class="value">{{.Totals.Checks}}</div><div class="sub">plus {{.Totals.Notes}} notes</div></div>
+  </div>
+
+  <h2>Startup, pod by pod</h2>
+  {{if .Workloads}}
+  <div class="legend">
+    <span><i class="key wait"></i>Created to image pull</span>
+    <span><i class="key pull"></i>Image pull</span>
+    <span><i class="key load"></i>Container start to latest Ready</span>
+  </div>
+  {{range $w := .Workloads}}
+  <section class="workload">
+    <h3>{{.Namespace}}/{{.Name}}</h3>
+    <p class="sub">{{.Kind}} · {{.Engine}} · {{if eq .Replicas "1"}}1 replica{{else}}{{.Replicas}} replicas{{end}}{{with .Autoscaler}} ({{.}}){{end}} · template image <code>{{.Image}}</code></p>
+    <div class="rows">
+      {{range .Rows}}
+      <div class="row">
+        <div class="who"><b title="{{.Pod}}">{{.Pod}}</b><span title="{{.Node}}">{{if .Node}}{{.Node}}{{else}}not scheduled{{end}}</span></div>
+        <div class="track" role="img" aria-label="{{.Pod}}: {{range .Segments}}{{.Title}}. {{end}}{{if .Total}}Latest Ready transition after {{.Total}}.{{else}}{{.State}}.{{end}}">
+          {{range $.Axis}}<div class="grid" style="left: {{pct .Pct}}"></div>{{end}}
+          {{range .Segments}}<div class="seg {{.Class}}" style="left: {{pct .Left}}; width: {{pct .Width}}" title="{{.Title}}"></div>{{end}}
+        </div>
+        {{if .Total}}<div class="total">{{.Total}}</div>{{else}}<div class="total unknown">{{.State}}</div>{{end}}
+      </div>
+      {{if .Restarts}}<p class="flag">Restarted {{.Restarts}} times, so only the image pull is shown. Pod status doesn't keep the first start.</p>{{end}}
+      {{if .Timeline.ImageCached}}<p class="flag">Image was already on the node.</p>{{end}}
+      {{if ne .Timeline.Image $w.Image}}{{if .Timeline.Image}}<p class="flag">Runs {{.Timeline.Container}} with <code>{{.Timeline.Image}}</code>, not the template image.</p>{{end}}{{end}}
+      {{end}}
+      <div class="axis"><div></div><div class="ticks">{{range $.Axis}}<span style="left: {{pct .Pct}}">{{.Label}}</span>{{end}}</div><div></div></div>
+    </div>
+    <details>
+      <summary>Times as a table</summary>
+      <div class="table-wrap" role="region" tabindex="0" aria-label="Startup times for {{.Namespace}}/{{.Name}}"><table>
+        <thead><tr><th scope="col">Pod</th><th scope="col" class="num">Image pull</th><th scope="col" class="num">Start to latest Ready</th><th scope="col" class="num">Created to latest Ready</th><th scope="col">State</th></tr></thead>
+        <tbody>{{range .Rows}}<tr><td><code>{{.Pod}}</code></td><td class="num">{{if .Timeline.PullTook}}{{dur .Timeline.PullTook}}{{else if .Timeline.ImageCached}}cached{{else}}unknown{{end}}</td><td class="num">{{if .Timeline.StartToReady}}{{dur .Timeline.StartToReady}}{{else}}unknown{{end}}</td><td class="num">{{if .Total}}{{.Total}}{{else}}unknown{{end}}</td><td>{{.State}}</td></tr>{{end}}</tbody>
+      </table></div>
+    </details>
+  </section>
+  {{end}}
+  {{else}}
+  <p>No model-serving workloads found. inferaudit looks for known serving engines (vLLM, TGI, Triton, SGLang, Ollama, NIM, KServe) and for pods that request GPUs. Use <code>--select key=value</code> to include others.</p>
+  {{end}}
+
+  <h2>Findings</h2>
+  {{if not .Areas}}<p>Nothing to flag.</p>{{end}}
+  {{range .Areas}}
+  <h3 style="margin: 20px 0 6px">{{.Name}}</h3>
+  {{range .Findings}}
+  <div class="finding">
+    <div class="badge {{.Level}}">{{if eq .Level "check"}}! Check{{else}}i Note{{end}}</div>
+    <div>
+      <h4>{{.Title}}</h4>
+      {{with .Workload}}<div class="where">{{.}}</div>{{end}}
+      <p>{{.Evidence}}</p>
+      <p><b>Why it matters.</b> {{.Why}}</p>
+      <p><b>Next.</b> {{.Next}}</p>
+    </div>
+  </div>
+  {{end}}
+  {{end}}
+
+  {{if .GPUNodes}}
+  <h2>GPU nodes</h2>
+  <div class="table-wrap" role="region" tabindex="0" aria-label="GPU nodes"><table>
+    <thead><tr><th scope="col">Node</th><th scope="col">Instance type</th><th scope="col" class="num">GPUs</th><th scope="col" class="num">Requested{{if ne .Totals.GPUScope "cluster"}} here{{end}}</th><th scope="col" style="width: 30%">Requested share</th></tr></thead>
+    <tbody>{{range .GPUNodes}}<tr><td><code>{{.Name}}</code></td><td>{{if .InstanceType}}{{.InstanceType}}{{else}}unknown{{end}}</td><td class="num">{{.Allocatable}}</td><td class="num">{{.Requested}}</td><td><div class="gpubar" role="img" aria-label="{{.Requested}} of {{.Allocatable}} GPUs requested"><i style="width: {{pct (gpuShare .Requested .Allocatable)}}"></i></div></td></tr>{{end}}</tbody>
+  </table></div>
+  {{end}}
+
+  <h2>What this report can't see</h2>
+  <ul class="gaps">
+    {{range .Meta.Gaps}}<li>{{.}}.</li>{{end}}
+    <li>GPU utilisation. Requests show what pods reserved, not how busy the GPUs are. Only nvidia.com/gpu and amd.com/gpu are counted.{{if ne .Totals.GPUScope "cluster"}} With one namespace read, requests from other namespaces aren't counted, so spare GPUs aren't reported.{{end}}</li>
+    <li>First starts. Pod status keeps only the latest Ready transition, so a pod whose readiness dropped and came back looks slower than it started, and a restarted pod's first start is gone.</li>
+    <li>Settings outside the pod spec. vLLM flags set inside a shell script or a config file aren't parsed, and only one serving container per pod is checked.</li>
+    <li>Network reachability. Exposure findings come from Service settings; nothing was probed.</li>
+    <li>Older starts. Kubernetes keeps events for about an hour by default, so image pull times for older pods are usually gone.</li>
+  </ul>
+
+  <footer>
+    inferaudit {{.Version}} · read-only, built from <code>kubectl get</code> output ·
+    <a href="https://github.com/vjsairam/inferaudit">github.com/vjsairam/inferaudit</a> · made by Sai Ram, <a href="https://vjsairam.com">vjsairam.com</a>
+  </footer>
+</main>
+</body>
+</html>

@@ -1,0 +1,24 @@
+{
+  "apiVersion": "v1",
+  "kind": "List",
+  "items": [
+    {
+      "apiVersion": "apps/v1",
+      "kind": "ReplicaSet",
+      "metadata": {
+        "name": "vllm-5f577ccf85",
+        "namespace": "model-serving",
+        "uid": "f1b4389c-5fd4-4326-a0fd-d4f750cc9e41",
+        "ownerReferences": [
+          {
+            "apiVersion": "apps/v1",
+            "kind": "Deployment",
+            "name": "vllm",
+            "uid": "d7fdf26a-6fda-4118-9279-b22fa7e477c6",
+            "controller": true
+          }
+        ]
+      }
+    }
+  ]
+}

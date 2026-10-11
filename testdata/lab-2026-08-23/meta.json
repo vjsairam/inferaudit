@@ -1,0 +1,6 @@
+{
+  "source": "lab snapshot",
+  "context": "Inference lab on EKS, 23 August 2026",
+  "namespace": "model-serving",
+  "note": "Sample report. Rebuilt from the lab's vLLM Helm chart and the events recorded in the 23 August 2026 KEDA run of ai-inference-cost-optimization, not a live scan. Pod and node objects are reconstructed from those records."
+}
